@@ -5,7 +5,6 @@ import socket
 import threading
 import random
 import time
-import mutex
 
 from address import Address, inrange
 from remote import Remote
@@ -108,7 +107,7 @@ class Local(Node):
 	@retry_on_socket_error(3)
 	def join(self, remote_address = None):
 		# initially just set successor
-		self.finger_ = map(lambda x: None, range(LOGSIZE))
+		self.finger_ = list(map(lambda x: None, range(LOGSIZE)))
 
 		self.predecessor_ = None
 
@@ -186,7 +185,7 @@ class Local(Node):
 
 	def get_successors(self):
 		self.log("get_successors")
-		return map(lambda node: (node.address_.ip, node.address_.port), self.successors_[:N_SUCCESSORS-1])
+		return list(map(lambda node: (node.address_.ip, node.address_.port), self.successors_[:N_SUCCESSORS-1]))
 
 	def successor(self):
 		# We make sure to return an existing successor, there `might`
@@ -280,7 +279,7 @@ class Local(Node):
 				self.shutdown_ = True
 				self.log("shutdown started")
 		except socket.error as e:
-			print "SOCKET ERROR in a worker: ", e
+			print("SOCKET ERROR in a worker: ", e)
 			self.log("process_client execution terminated")
 
 	def run(self):
@@ -296,7 +295,7 @@ class Local(Node):
 			try:
 				local.process_client(conn)
 			except Exception as e:
-				print "WORKER EXCEPTION: ", e
+				print("WORKER EXCEPTION: ", e)
 
 		to_join = []
 		while not self.shutdown_:
@@ -308,7 +307,7 @@ class Local(Node):
 				thread.start()
 			except socket.error as e:
 				self.shutdown_ = True
-				print "shutting down because of an exception on the main socket", e
+				print("shutting down because of an exception on the main socket", e)
 				break
 
 			i = 0

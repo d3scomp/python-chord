@@ -23,6 +23,9 @@ class Address(object):
 	def __cmp__(self, other):
 		return other.__hash__() < self.__hash__()
 
+	def __lt__(self, other):
+		return self.__hash__() < other.__hash__()
+
 	def __eq__(self, other):
 		return other.__hash__() == self.__hash__()
 

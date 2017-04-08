@@ -7,6 +7,7 @@ from settings import SIZE
 from network import *
 from node import *
 
+
 # decorator to thread-safe Remote's socket
 def requires_connection(func):
 	""" initiates and cleans up connections with remote server """
@@ -32,6 +33,7 @@ def requires_connection(func):
 				self.close_connection()
 			raise e
 	return inner
+
 
 # class representing a remote peer
 class Remote(Node):
@@ -107,7 +109,7 @@ class Remote(Node):
 		if response == "":
 			return []
 		response = json.loads(response)
-		return map(lambda address: Remote(Address(address[0], address[1])) ,response)
+		return list(map(lambda address: Remote(Address(address[0], address[1])), response))
 
 	@requires_connection
 	def successor(self):
