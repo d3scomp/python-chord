@@ -2,6 +2,7 @@ from chord import Local, Daemon, repeat_and_sleep, inrange
 from remote import Remote
 from address import Address
 import json
+import socket
 
 # data structure that represents a distributed hash table
 class DHT(object):

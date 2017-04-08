@@ -1,7 +1,7 @@
 # CONFIGURATION FILE
 
 # log size of the ring
-LOGSIZE = 8
+LOGSIZE = 16
 SIZE = 1<<LOGSIZE
 
 # successors list size (to continue operating on node failures)

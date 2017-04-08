@@ -9,12 +9,13 @@ def inrange(c, a, b):
 	c = c % SIZE
 	if a < b:
 		return a <= c and c < b
-	return a <= c or c < b
+	return (a < c and c < SIZE) or (0 <= c and c < b)
 
 class Address(object):
 	def __init__(self, ip, port):
 		self.ip = ip
 		self.port = int(port)
+		# print "%s:%s" % (ip, port)
 
 	def __hash__(self):
 		return hash(("%s:%s" % (self.ip, self.port))) % SIZE
