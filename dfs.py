@@ -3,6 +3,7 @@
 # truncate_size : file new_size
 # attr : file -> dict
 import settings
+from hash import hash_string
 
 BLOCK_SIZE = 4096
 
@@ -40,7 +41,7 @@ class DFS(object):
     	return "%s:%s" % (file_name, block_offset)
 
 	def get_hash(self, file_name, offset):
-		return hash(self.get_id(file_name, offset)) % settings.SIZE
+		return hash_string(self.get_id(file_name, offset)) % settings.SIZE
 
 	def get_remote(self, file_name, offset):
 		hs = self.get_hash(file_name, offset)
