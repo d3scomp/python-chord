@@ -1,5 +1,6 @@
 from settings import SIZE
 
+
 # Helper function to determine if a key falls within a range
 def inrange(c, a, b):
 	# is c in [a,b)?, if a == b then it assumes a full circle
@@ -10,6 +11,7 @@ def inrange(c, a, b):
 	if a < b:
 		return a <= c and c < b
 	return (a < c and c < SIZE) or (0 <= c and c < b)
+
 
 class Address(object):
 	def __init__(self, ip, port):
